@@ -1,5 +1,5 @@
 # Etapa 1: Compilação do projeto com Maven e JDK 17
-FROM maven:3.9.6-openjdk-17 AS build
+FROM maven:3.8.6-openjdk-17-slim AS build
 
 # Diretório de trabalho no container
 WORKDIR /app
