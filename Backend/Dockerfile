@@ -1,25 +1,30 @@
-# Use imagem oficial do Maven com JDK
-FROM maven:3.8.7-openjdk-17 AS build
+# Etapa 1: Compilação do projeto com Maven e JDK 17
+FROM maven:3.9.6-openjdk-17 AS build
 
+# Diretório de trabalho no container
 WORKDIR /app
 
-# Copia arquivos para dentro do container
+# Copia arquivos do projeto para o container
 COPY pom.xml .
 COPY src ./src
 
-# Builda o projeto e gera o jar
+# Compila o projeto e gera o JAR (sem rodar testes)
 RUN mvn clean package -DskipTests
 
-# Segunda fase: só o JRE para rodar o app
+# Etapa 2: Imagem final apenas com JRE para rodar o app
 FROM openjdk:17-jdk-slim
 
+# Diretório onde o app será executado
 WORKDIR /app
 
-# Copia o jar da build anterior
-COPY --from=build /app/target/Backend-0.0.1-SNAPSHOT.jar app.jar
+# Copia o JAR compilado da etapa anterior
+COPY --from=build /app/target/*.jar app.jar
 
-# Porta que seu app vai expor (confira se bate com o app)
+# Expõe a porta usada pelo Spring Boot (Render injeta via $PORT)
 EXPOSE 8080
 
-# Comando para rodar a aplicação
+# Usa a variável de ambiente PORT (Render define ela automaticamente)
+ENV PORT=8080
+
+# Comando para rodar o aplicativo
 ENTRYPOINT ["java", "-jar", "app.jar"]
