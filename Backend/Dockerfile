@@ -1,30 +1,34 @@
-# Etapa 1: Compilação do projeto com Maven e JDK 17
-FROM maven:3.8.6-openjdk-17-slim AS build
+# Stage 1: build usando imagem oficial do Maven com JDK 17
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 
-# Diretório de trabalho no container
+# Diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia arquivos do projeto para o container
+# Copia arquivos essenciais primeiro para cache melhor
 COPY pom.xml .
+
+# Baixa dependências antes do código, para usar cache Docker
+RUN mvn dependency:go-offline
+
+# Copia o código fonte
 COPY src ./src
 
-# Compila o projeto e gera o JAR (sem rodar testes)
+# Compila e empacota o app, pulando testes para acelerar build
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Imagem final apenas com JRE para rodar o app
-FROM openjdk:17-jdk-slim
+# Stage 2: imagem leve só para rodar o app
+FROM eclipse-temurin:17-jre-focal
 
-# Diretório onde o app será executado
 WORKDIR /app
 
-# Copia o JAR compilado da etapa anterior
+# Copia o JAR compilado do estágio anterior
 COPY --from=build /app/target/*.jar app.jar
 
-# Expõe a porta usada pelo Spring Boot (Render injeta via $PORT)
+# Expõe a porta padrão (Render vai usar variável $PORT automaticamente)
 EXPOSE 8080
 
-# Usa a variável de ambiente PORT (Render define ela automaticamente)
+# Variável de ambiente para compatibilidade com Render
 ENV PORT=8080
 
-# Comando para rodar o aplicativo
+# Comando para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]
