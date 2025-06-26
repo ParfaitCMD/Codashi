@@ -193,37 +193,63 @@ html, body {
     pointer-events: none;
     z-index: 10;
 }
-/* --- SETA DE ROLAGEM COM ANIMAÇÃO --- */
-.seta-link { 
-    position: absolute; 
-    bottom: 20px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    z-index: 15; 
+
+/* --- SETA DE ROLAGEM COM ANIMAÇÃO (VERSÃO FINAL) --- */
+.seta-link {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
 }
 
-.seta { 
-    width: 230px; /* Mantive o tamanho anterior que estava bom */
-    height: 230px; 
+.seta {
+    width: 230px;
+    height: 230px;
     transition: transform 0.3s ease;
-    /* MUDANÇA: Aplica a nova animação de movimento */
-    animation: bounce-arrow 2s ease-in-out infinite;
+    /* CORREÇÃO: Usando ../ para acertar o caminho da pasta css para a assets */
+    -webkit-mask: url('../assets/img/Seta.svg') no-repeat center;
+    mask: url('../assets/img/Seta.svg') no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    /* Gradiente animado como fundo */
+    background: linear-gradient(180deg,
+        #00ffff,
+        #8A2BE2,
+        #E800B2,
+        #8A2BE2,
+        #00ffff
+    );
+    background-size: 100% 300%;
+    /* Combinando as duas animações */
+    animation:
+        bounce-arrow 2s ease-in-out infinite,
+        scroll-gradient 3s linear infinite;
 }
 
 .seta-link:hover .seta {
-    transform: scale(1.2); /* Efeito de hover na seta */
-    /* MUDANÇA: Pausa a animação de bounce no hover para o scale funcionar melhor */
+    transform: scale(1.2);
     animation-play-state: paused;
 }
 
-/* MUDANÇA: Nova regra de animação para o efeito de "sobe e desce" */
+/* Animação de pulo da seta */
 @keyframes bounce-arrow {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px); /* Move a seta 10px para baixo */
-  }
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+/* Animação que move o gradiente */
+@keyframes scroll-gradient {
+    from {
+        background-position: 50% 0%;
+    }
+    to {
+        background-position: 50% 100%;
+    }
 }
 
 /* --- ANIMAÇÕES --- */
