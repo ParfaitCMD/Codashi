@@ -9,7 +9,7 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* --- NOVO: Definição da propriedade de ângulo para animação --- */
+/* --- Definição da propriedade de ângulo para animação --- */
 @property --angle {
   syntax: '<angle>';
   initial-value: 0deg;
