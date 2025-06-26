@@ -64,24 +64,60 @@ html, body {
 
 /* --- ELEMENTOS DE CONTEÚDO (POSIÇÕES E TAMANHOS AJUSTADOS) --- */
 
-/* COLUNA ESQUERDA */
+/* =================================================================== */
+/* --- INÍCIO DA SEÇÃO --- */
+/* =================================================================== */
+
+/* 1. O Contêiner Principal da Animação */
 .logo-cabeca-container {
-  position: relative;
-  /* MUDANÇA: Abaixa a cabeça do Anubis */
-  margin-top: -50px; 
+  position: relative; /* Essencial para posicionar os filhos dentro dele */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px; /* Definimos um tamanho fixo para o contêiner */
+  height: 250px; /* Ajuste a altura conforme a imagem original */
+  margin-top: -50px;
+  cursor: pointer; /* Adiciona um cursor para indicar que é interativo */
 }
-.anubis-site-12 { 
-    width: 250px; 
-    height: auto; 
+
+/* 2. A Imagem do Anubis (Camada da Frente) */
+.anubis-site-12 {
+    width: 100%; /* Ocupa todo o contêiner */
+    height: auto;
+    position: relative; /* Para poder aplicar z-index e transição */
+    z-index: 2; /* Fica na camada da frente (número maior) */
+
+    /* A animação suave! */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
+/* 3. O Texto "Seja Dev" (Camada de Trás) */
 .seja-dev {
-    position: absolute;
-    top: 45px;
-    right: 5px;
+    position: absolute; /* Posição absoluta para ficar no mesmo lugar que a imagem */
+    z-index: 1; /* Fica na camada de trás (número menor) */
+
+    /* Estilos do texto */
     color: #fff;
     font-weight: 700;
     text-align: center;
+    font-size: 1.2rem;
+    line-height: 1;
+
+    /* Centraliza o texto perfeitamente no meio do contêiner */
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
+/* 4. A ANIMAÇÃO: O que acontece quando o mouse passa por cima */
+.logo-cabeca-container:hover .anubis-site-12 {
+    /* Move a imagem 45px para cima e diminui para 75% do tamanho */
+    transform: translateY(-45px) scale(0.75);
+}
+
+/* =================================================================== */
+/* --- FIM DA SEÇÃO --- */
+/* =================================================================== */
 
 .inove-com-poucas-linhas {
     color: #fff;
@@ -261,3 +297,141 @@ html, body {
 #sobre { background-color: #1A1A1D; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
 .conteudo-secao-2 h1 { font-size: 4rem; margin-bottom: 20px; }
 .conteudo-secao-2 p { font-size: 1.5rem; }
+
+/* =================================================================== */
+/* --- CÓDIGO DE RESPONSIVIDADE ADICIONADO --- */
+/* =================================================================== */
+
+/* Para telas de até 1200px (laptops menores e tablets grandes) */
+@media (max-width: 1200px) {
+  #home {
+    /* Muda o grid para duas colunas flexíveis */
+    grid-template-columns: 1fr 1fr;
+  }
+  .linha-vertical-magenta, .linha-vertical-amarela {
+    /* Esconde as linhas divisórias pois a coluna não é mais fixa */
+    display: none;
+  }
+  .anubis-trecodalogo-2 {
+    /* Reduz e reposiciona a imagem de fundo */
+    width: 600px;
+    right: -150px;
+  }
+}
+
+/* Para telas de até 1024px (tablets em modo paisagem) */
+@media (max-width: 1024px) {
+  #home {
+    /* A MUDANÇA MAIS IMPORTANTE: Transforma em uma única coluna */
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+  .coluna-direita {
+    /* Escondemos a coluna da direita em telas menores para focar no conteúdo principal */
+    /* Você pode optar por mostrá-la se quiser, mas pode poluir a tela */
+    display: none;
+  }
+  .coluna-esquerda {
+    padding: 0 20px;
+    text-align: center;
+  }
+  .inove-com-poucas-linhas {
+    font-size: 36px;
+  }
+  .bot-o {
+    width: 260px;
+    height: 65px;
+  }
+  .iniciar {
+    font-size: 30px;
+  }
+  .anubis-trecodalogo-2 {
+    /* Reposiciona a imagem de fundo para o novo layout de coluna única */
+    opacity: 0.1;
+    right: -200px;
+    top: 25%;
+  }
+}
+
+/* Para telas de até 768px (tablets em modo retrato e celulares grandes) */
+@media (max-width: 768px) {
+  .secao {
+    /* Permite que a altura da seção se ajuste ao conteúdo, se necessário */
+    height: auto;
+    min-height: 100vh;
+  }
+  .logo-cabeca-container {
+    margin-top: 0; /* Reseta a margem */
+    transform: scale(0.8); /* Reduz o tamanho do logo */
+  }
+  .inove-com-poucas-linhas {
+    font-size: 28px;
+  }
+  .bot-o {
+    transform: scale(0.9);
+  }
+  .seta {
+    width: 150px;
+    height: 150px;
+  }
+  /* Ajusta fontes na seção Sobre */
+  .conteudo-secao-2 h1 { font-size: 2.5rem; }
+  .conteudo-secao-2 p { font-size: 1.2rem; }
+}
+
+/* Para telas de até 480px (celulares) */
+@media (max-width: 480px) {
+  body {
+    /* Garante que não haja overflow horizontal */
+    overflow-x: hidden;
+  }
+  #home, .coluna-esquerda {
+    padding: 0 15px; /* Reduz ainda mais o espaçamento lateral */
+  }
+  .logo-cabeca-container {
+    transform: scale(0.7);
+  }
+  .inove-com-poucas-linhas {
+    font-size: 24px;
+  }
+  .bot-o {
+    transform: scale(0.8);
+  }
+  .seta {
+    width: 120px;
+    height: 120px;
+    bottom: 10px;
+  }
+  /* Esconde a imagem de fundo para focar no conteúdo e melhorar performance */
+  .anubis-trecodalogo-2 {
+    display: none;
+  }
+}
+
+/* =================================================================== */
+/* --- NOVO: AJUSTE PARA MONITORES LARGOS (Acima de 1440px) --- */
+/* =================================================================== */
+@media (min-width: 1441px) {
+  #home {
+    /* Remove a largura máxima fixa e permite que o layout ocupe 95% da tela */
+    max-width: 95%;
+  }
+
+  /* Como o container agora é fluido, as colunas também devem ser */
+  /* A coluna da esquerda terá 40% da largura, e a direita o resto */
+  #home {
+    grid-template-columns: 40% 1fr;
+  }
+
+  /* Precisamos reposicionar as linhas para a nova divisão de 40% */
+  .linha-vertical-magenta {
+    left: 40%;
+  }
+  .linha-vertical-amarela {
+    left: calc(40% + 8px); /* 8px de distância da primeira linha */
+  }
+
+  .divisor-tela {
+    max-width: 100%; /* Permite que o divisor estique com a tela */
+  }
+}
