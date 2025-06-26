@@ -201,8 +201,8 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
+    cursor: pointer;
 }
-
 .seta {
     width: 230px;
     height: 230px;
