@@ -5,7 +5,6 @@ html, body {
   width: 100%;
   font-family: 'Comfortaa', sans-serif;
   background-color: #000000;
-  overflow: hidden;
   scroll-behavior: smooth;
 }
 
@@ -126,47 +125,70 @@ html, body {
     text-align: center;
     line-height: 1.1;
     /* MUDANÇA: Garante que o texto não tenha margens indesejadas */
-    margin: 0; 
+    margin: 0;
 }
 
-/* --- BOTÃO INICIAR COM NOVA ANIMAÇÃO DE BORDA --- */
+/* --- BOTÃO INICIAR COM VISUAL APRIMORADO --- */
 .bot-o {
-  width: 280px; 
+  width: 280px;
   height: 70px;
-  border-radius: 50px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  cursor: pointer; 
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   position: relative;
-  
-  /* Remove o box-shadow antigo e prepara para a nova borda */
-  border: 3px solid transparent;
+  border: 3px solid transparent; /* A borda que será preenchida pelo gradiente */
 
-  /*
-    Técnica de 2 camadas de fundo:
-    1. O gradiente cônico animado forma a "borda".
-    2. O fundo preto sólido fica por cima, dentro do padding, revelando apenas a borda do gradiente.
-  */
-  background: 
+  /* Técnica de 2 camadas de fundo */
+  background:
     linear-gradient(#000, #000) padding-box,
     conic-gradient(from var(--angle), #4B0082, #8A2BE2 20%, #4B0082 35%, transparent 50%) border-box;
 
-  /* Aplica a animação que muda o ângulo do gradiente */
-  animation: border-loading-animation 4s linear infinite;
-  transition: transform 0.3s ease;
+  /* Animação que muda o ângulo do gradiente */
+  animation: border-loading-animation 2.5s linear infinite;
+
+  /* NOVO: Glow sutil que emana do botão */
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+  /* MELHORADO: Transição mais suave para múltiplas propriedades */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, animation-duration 0.3s ease;
 }
 
 .bot-o:hover {
-    transform: scale(1.05);
+  transform: scale(1.05); /* Mantém o crescimento */
+
+  /* NOVO: O glow fica mais intenso no hover */
+  box-shadow: 0 0 25px rgba(138, 43, 226, 0.8);
+
+  /* NOVO: A animação da borda fica mais rápida no hover */
+  animation-duration: 1s;
 }
 
-.iniciar { 
-    font-size: 34px; 
-    color: #fff; 
-    font-weight: 700; 
+/* NOVO: Feedback visual quando o botão é pressionado */
+.bot-o:active {
+    transform: scale(0.98); /* Encolhe um pouco para simular o clique */
 }
 
+.iniciar {
+  font-size: 34px;
+  font-weight: 700;
+
+  /* MELHORADO: Texto com gradiente para combinar com a borda */
+  background: #fff;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* O texto em si fica transparente para revelar o fundo */
+
+  /* NOVO: Sombra sutil para destacar o texto */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Animação da borda (sem alterações) */
+@keyframes border-loading-animation {
+  to {
+    --angle: 360deg;
+  }
+}
 /* Define a animação da borda */
 @keyframes border-loading-animation {
   to {
@@ -189,14 +211,14 @@ html, body {
     align-items: flex-end; /* Alinha pela base, como no seu código */
     justify-content: center;
 }
-.cod-shi { 
-    height: 60px; 
+.cod-shi {
+    height: 60px;
     margin-left: -102px;
 }
-.anubis-trecodalogo-1 { 
-    height: 70px; 
+.anubis-trecodalogo-1 {
+    height: 70px;
     /* MUDANÇA: Ajustado para o seu valor exato */
-    margin-left: -175px; 
+    margin-left: -175px;
 }
 
 .de-ideias-simples-a-solu-es-maiores-voc-tem-espa-o-para-experimentar-aprender-e-inovar-com-poucos-ou-muitos-cliques-e-muita-liberdade {
@@ -206,6 +228,15 @@ html, body {
     text-align: center;
     line-height: 1.4;
     max-width: 650px;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.de-ideias-simples-a-solu-es-maiores-voc-tem-espa-o-para-experimentar-aprender-e-inovar-com-poucos-ou-muitos-cliques-e-muita-liberdade:hover {
+  /* 1. Aumenta o tamanho do texto levemente */
+  transform: scale(1.03);
+
+  /* 2. Cria o brilho neon branco */
+  text-shadow: 0 0 8px #ffffff, 0 0 10px #ffffff;
 }
 
 /* --- ELEMENTOS DE SOBREPOSIÇÃO --- */
