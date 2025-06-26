@@ -33,7 +33,7 @@ html, body {
 /* --- LAYOUT DA SEÇÃO 1 (HOME) --- */
 #home {
   display: grid;
-  grid-template-columns: 624px 1fr; 
+  grid-template-columns: 624px 1fr;
   align-items: center;
   max-width: 1440px;
   height: 100%;
@@ -409,16 +409,26 @@ html, body {
 }
 
 /* =================================================================== */
-/* --- CORREÇÃO FINAL: AJUSTE PARA MONITORES LARGOS --- */
+/* --- VERSÃO FINAL: AJUSTE PARA MONITORES LARGOS --- */
 /* =================================================================== */
 @media (min-width: 1441px) {
   #home {
-    /* Remove a barreira da largura máxima, permitindo que o site cresça */
+    /* Remove a barreira e usa padding para criar as 'bordas' laterais */
     max-width: none;
+    padding-left: 5vw; /* Usa 5% da largura da tela como borda esquerda */
+    padding-right: 5vw; /* E 5% na direita */
+
+    /* Faz as colunas serem proporcionais */
+    grid-template-columns: 45% 1fr;
+  }
+
+  .linha-vertical-magenta, .linha-vertical-amarela {
+    /* Ajusta as linhas divisórias para a nova coluna fluida */
+    left: 45%;
   }
 
   .divisor-tela {
-    /* Faz com que o divisor de baixo também cresça com a tela */
+    /* Faz o divisor ocupar a nova largura total */
     max-width: 100%;
   }
 }
