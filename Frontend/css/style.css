@@ -409,29 +409,16 @@ html, body {
 }
 
 /* =================================================================== */
-/* --- NOVO: AJUSTE PARA MONITORES LARGOS (Acima de 1440px) --- */
+/* --- CORREÇÃO FINAL: AJUSTE PARA MONITORES LARGOS --- */
 /* =================================================================== */
 @media (min-width: 1441px) {
   #home {
-    /* Remove a largura máxima fixa e permite que o layout ocupe 95% da tela */
-    max-width: 95%;
-  }
-
-  /* Como o container agora é fluido, as colunas também devem ser */
-  /* A coluna da esquerda terá 40% da largura, e a direita o resto */
-  #home {
-    grid-template-columns: 40% 1fr;
-  }
-
-  /* Precisamos reposicionar as linhas para a nova divisão de 40% */
-  .linha-vertical-magenta {
-    left: 40%;
-  }
-  .linha-vertical-amarela {
-    left: calc(40% + 8px); /* 8px de distância da primeira linha */
+    /* Remove a barreira da largura máxima, permitindo que o site cresça */
+    max-width: none;
   }
 
   .divisor-tela {
-    max-width: 100%; /* Permite que o divisor estique com a tela */
+    /* Faz com que o divisor de baixo também cresça com a tela */
+    max-width: 100%;
   }
 }
