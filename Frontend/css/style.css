@@ -1,0 +1,237 @@
+/* --- RESET E CONFIGURAÇÃO GLOBAL --- */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Comfortaa', sans-serif;
+  background-color: #000000;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+/* --- NOVO: Definição da propriedade de ângulo para animação --- */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.secao {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* --- LAYOUT DA SEÇÃO 1 (HOME) --- */
+#home {
+  display: grid;
+  grid-template-columns: 624px 1fr; 
+  align-items: center;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  background: #000;
+}
+
+/* Colunas */
+.coluna-esquerda, .coluna-direita {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50px;
+  position: relative;
+  z-index: 5;
+}
+
+.coluna-esquerda {
+  background: linear-gradient(180deg, rgba(26, 26, 26, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  gap: 25px; /* Espaçamento entre os itens */
+}
+
+.coluna-direita {
+    gap: 40px; /* Espaçamento entre os itens */
+}
+
+/* --- ELEMENTOS DE CONTEÚDO (POSIÇÕES E TAMANHOS AJUSTADOS) --- */
+
+/* COLUNA ESQUERDA */
+.logo-cabeca-container {
+  position: relative;
+  /* MUDANÇA: Abaixa a cabeça do Anubis */
+  margin-top: -50px; 
+}
+.anubis-site-12 { 
+    width: 250px; 
+    height: auto; 
+}
+.seja-dev {
+    position: absolute;
+    top: 45px;
+    right: 5px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+}
+
+.inove-com-poucas-linhas {
+    color: #fff;
+    font-size: 44px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.1;
+    /* MUDANÇA: Garante que o texto não tenha margens indesejadas */
+    margin: 0; 
+}
+
+/* --- BOTÃO INICIAR COM NOVA ANIMAÇÃO DE BORDA --- */
+.bot-o {
+  width: 280px; 
+  height: 70px;
+  border-radius: 50px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+  position: relative;
+  
+  /* Remove o box-shadow antigo e prepara para a nova borda */
+  border: 3px solid transparent;
+
+  /*
+    Técnica de 2 camadas de fundo:
+    1. O gradiente cônico animado forma a "borda".
+    2. O fundo preto sólido fica por cima, dentro do padding, revelando apenas a borda do gradiente.
+  */
+  background: 
+    linear-gradient(#000, #000) padding-box,
+    conic-gradient(from var(--angle), #4B0082, #8A2BE2 20%, #4B0082 35%, transparent 50%) border-box;
+
+  /* Aplica a animação que muda o ângulo do gradiente */
+  animation: border-loading-animation 4s linear infinite;
+  transition: transform 0.3s ease;
+}
+
+.bot-o:hover {
+    transform: scale(1.05);
+}
+
+.iniciar { 
+    font-size: 34px; 
+    color: #fff; 
+    font-weight: 700; 
+}
+
+/* Define a animação da borda */
+@keyframes border-loading-animation {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Botão Criar Conta */
+.criarconta {
+  padding: 4px 12px;
+  background-color: transparent; border-radius: 19px; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.3s ease;
+}
+.criarconta:hover { background-color: #fff; }
+.criarconta2 { font-size: 13px; color: #fff; font-weight: 700; transition: color 0.3s ease; }
+.criarconta:hover .criarconta2 { color: #000; }
+
+/* COLUNA DIREITA */
+.logo-codashi-container {
+    display: flex;
+    align-items: flex-end; /* Alinha pela base, como no seu código */
+    justify-content: center;
+}
+.cod-shi { 
+    height: 60px; 
+    margin-left: -102px;
+}
+.anubis-trecodalogo-1 { 
+    height: 70px; 
+    /* MUDANÇA: Ajustado para o seu valor exato */
+    margin-left: -175px; 
+}
+
+.de-ideias-simples-a-solu-es-maiores-voc-tem-espa-o-para-experimentar-aprender-e-inovar-com-poucos-ou-muitos-cliques-e-muita-liberdade {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+    max-width: 650px;
+}
+
+/* --- ELEMENTOS DE SOBREPOSIÇÃO --- */
+
+.linha-vertical-magenta, .linha-vertical-amarela { position: absolute; top: 0; height: 100%; z-index: 10; animation: rainbow-background-loop 10s linear infinite, rainbow-neon-glow 10s linear infinite; }
+.linha-vertical-magenta { left: 624px; width: 4px; }
+.linha-vertical-amarela { left: 632px; width: 3px; animation-delay: -0.5s; }
+.anubis-trecodalogo-2 { position: absolute; right: -120px; top: 200px; width: 724px; height: 789px; transform: scale(-1, 1); z-index: 1; }
+.anubis-trecodalogo-22 { opacity: 0.1; width: 100%; height: 100%; object-fit: cover; }
+
+.divisor-tela {
+    position: absolute;
+    /* MUDANÇA: Abaixado para mostrar só a borda */
+    bottom: -108px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1440px;
+    height: 150px; 
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 10;
+}
+/* --- SETA DE ROLAGEM COM ANIMAÇÃO --- */
+.seta-link { 
+    position: absolute; 
+    bottom: 20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 15; 
+}
+
+.seta { 
+    width: 230px; /* Mantive o tamanho anterior que estava bom */
+    height: 230px; 
+    transition: transform 0.3s ease;
+    /* MUDANÇA: Aplica a nova animação de movimento */
+    animation: bounce-arrow 2s ease-in-out infinite;
+}
+
+.seta-link:hover .seta {
+    transform: scale(1.2); /* Efeito de hover na seta */
+    /* MUDANÇA: Pausa a animação de bounce no hover para o scale funcionar melhor */
+    animation-play-state: paused;
+}
+
+/* MUDANÇA: Nova regra de animação para o efeito de "sobe e desce" */
+@keyframes bounce-arrow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px); /* Move a seta 10px para baixo */
+  }
+}
+
+/* --- ANIMAÇÕES --- */
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes rainbow-background-loop { 0%{background-color:#E800B2}14%{background-color:#8b00ff}28%{background-color:#0000ff}42%{background-color:#00ff00}57%{background-color:#ffff00}71%{background-color:#ff7f00}85%{background-color:#ff0000}100%{background-color:#E800B2} }
+@keyframes rainbow-neon-glow { 0%{box-shadow:0 0 12px #E800B2}14%{box-shadow:0 0 12px #8b00ff}28%{box-shadow:0 0 12px #0000ff}42%{box-shadow:0 0 12px #00ff00}57%{box-shadow:0 0 12px #ffff00}71%{box-shadow:0 0 12px #ff7f00}85%{box-shadow:0 0 12px #ff0000}100%{box-shadow:0 0 12px #E800B2} }
+
+/* --- SEÇÃO 2 (SOBRE) --- */
+#sobre { background-color: #1A1A1D; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+.conteudo-secao-2 h1 { font-size: 4rem; margin-bottom: 20px; }
+.conteudo-secao-2 p { font-size: 1.5rem; }
